@@ -3,8 +3,8 @@ import java.util.Scanner;
 public class Main {
 
 /*
-                            This the Main program
-     */
+    This the Main program
+*/
 
     public static void main(String[] args) {
 
@@ -36,11 +36,12 @@ public class Main {
 */
 
     public static double calcBatPerc(int[] batArray) {
-        double batAvg = 0.0;
+        double batAvg = 0.0;  // initializing batAvg values as double
 
 
-        double batSum = 0;
+        double batSum = 0;  //outside for loop so it doesn't get reset
 
+        // for loop will go thru a single dimension array of column for batters
         for (int j = 0; j < batArray.length; j++) {
             if (batArray[j] == 0) {                   //If at bat result is 0 the program continues
                 continue;
@@ -60,12 +61,12 @@ public class Main {
 */
 
     public static double calcSlugPerc(int[] batArray) {
-        double slugPerc = 0.0;
+        double slugPerc = 0.0;   // initializing batAvg values as double
 
-        double sum = 0;
+        double sum = 0;    //needs to be outside of for loop so the sum does not reset every iteration
         for (int i = 0; i < batArray.length; i++) {
 
-            sum = sum + batArray[i];     //else; at bat result is not 0, adds the total number in the row
+            sum = sum + batArray[i];     // does not need an if else statement as 0 will still get added to the sum.
 
         }
 
@@ -74,70 +75,69 @@ public class Main {
     }
 
 
+    /**
+     * // This prints the array for checking array contents
+     * <p>
+     * <p>
+     * //        public static void printArray(int[][] batArray) {
+     * //
+     * //
+     * //        for (int i = 0; i < batArray.length; i++) {
+     * //
+     * //
+     * //            for (int j = 0; j < batArray[i].length; j++) {
+     * //
+     * //
+     * //                System.out.println(batArray[i][j]);
+     * //
+     * //            }
+     * //        }
+     * //
+     * //    }
+     */
 
-/**
-            // This prints the array for checking array contents
 
-
-//        public static void printArray(int[][] batArray) {
-//
-//
-//        for (int i = 0; i < batArray.length; i++) {
-//
-//
-//            for (int j = 0; j < batArray[i].length; j++) {
-//
-//
-//                System.out.println(batArray[i][j]);
-//
-//            }
-//        }
-//
-//    }
-
-*/
 
 /*
     This is the method to populate arrays by asking user input on number of batters,
     number of times at bat and results of at bat
 */
-
     public static int[][] userInput() {
         Scanner scan1 = new Scanner(System.in);
 
         System.out.printf("Please enter number of batters : ");
-        int numOfBatters = scan1.nextInt();
+        int numOfBatters = scan1.nextInt();         // user input SETS number of batters/number of rows in the array
         scan1.nextLine();
 
-        int[][] batArray = new int[numOfBatters][];
+        int[][] batArray = new int[numOfBatters][];     //initializing the array with number of batters as rows
 
         for (int i = 0; i < batArray.length; i++) {
             System.out.printf("Please enter number of times batter (%d) at bat : ", i + 1);
-            int atBat = scan1.nextInt();
+            int atBat = scan1.nextInt();   // user input SETS count at bat for each batter/number of columns for batters
             scan1.nextLine();
 
-
-            batArray[i] = new int[atBat];
+            batArray[i] = new int[atBat];       //initializing the array with count at bat as columns
 
             for (int j = 0; j < batArray[i].length; j++) {
                 System.out.printf("Batting results for (%d,%d) : ", i + 1, j + 1);
-                batArray[i][j] = scan1.nextInt();
+                batArray[i][j] = scan1.nextInt();   // user input result to be entered into the array for each [i],[J]
                 scan1.nextLine();
 
 
-                // This checks if the user input for at bat result is valid between 0 and 4
+                // Calling method that checks if the user input for at bat result is valid between 0 and 4
                 atBatResult(scan1, batArray[i], j);
 
             }
         }
 
-        return batArray;
+        return batArray;    // returns the array back into main
     }
 
 
-    /*
-                        This is the method to check user input for at bat results
-         */
+/*
+    This is the method to check user input for at bat results
+*/
+
     public static void atBatResult(Scanner scan1, int[] ints, int j) {
         if (ints[j] < 0 || ints[j] > 4) {
             System.out.println("Please input result as : 0 = Out, 1 = Single, 2 = Double, 3 = Triple, 4 = HOME RUN!");
@@ -151,10 +151,9 @@ public class Main {
     }
 
 
-
-/*
-                        This is the method to ask if user wants to continue
-     */
+    /*
+        This is the method to ask if user wants to continue
+    */
     public static boolean userContinueProgram() {
         Scanner scan = new Scanner(System.in);
         String userCont;
@@ -176,7 +175,6 @@ public class Main {
         } else {
             System.out.println("Thanks You. Goodbye.");
             return false;
-            //System.exit(0);                                                                                             // Exits the program if user enters anything other then 'y'
         }
 
 

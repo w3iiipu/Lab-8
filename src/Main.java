@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
 
 /*
-                        This the Main program
+                            This the Main program
      */
 
     public static void main(String[] args) {
@@ -13,18 +13,23 @@ public class Main {
         while (userContinueProgram()) {                                         // ask if user wants to continue
 
 
-            int[][] batArray = userInput();
+            int[][] batArray = userInput();                                     // initialized the array in main
 
 
+            // print results of both calculations for all batters
             for (int i = 0; i < batArray.length; i++) {
                 System.out.printf("Batter %5d Batting average: %-10.2f Slugging percentage: %-10.2f", i + 1,
                         calcBatPerc(batArray), calcSlugPerc(batArray));
+
                 System.out.println();
             }
 
         }
 
     } // end of main
+
+//    TODO                  The program is only outputting the last batter's result
+
 
 /*
                         This is the method for calculating batting percentage
@@ -38,17 +43,19 @@ public class Main {
             double batSum = 0;
 
             for (int j = 0; j < batArray[i].length; j++) {
-                if (batArray[i][j] == 0) {
+                if (batArray[i][j] == 0) {                   //If at bat result is 0 the program continues
                     continue;
                 } else {
-                    ++batSum;
+                    ++batSum;  //else; at bat result is not 0, adds +1 to the count of how many times at bat
                 }
             }
 
-            batAvg = batSum / batArray[i].length;
+            batAvg = batSum / batArray[i].length;    // calculates the slugging percentage
         }
-        return batAvg;
+        return batAvg;          // returns the calculated slugging percentage to main
     }
+
+
 
 /*
                         This is the method fo calculating slugging percentage
@@ -62,20 +69,23 @@ public class Main {
             double sum = 0;
 
             for (int j = 0; j < batArray[i].length; j++) {
-                if (batArray[i][j] == 0) {
+                if (batArray[i][j] == 0) {         //If at bat result is 0 the program continues
                     continue;
                 } else {
-                    sum = sum + batArray[i][j];
+                    sum = sum + batArray[i][j];     //else; at bat result is not 0, adds the total number in the row
                 }
             }
 
-            slugPerc = sum / batArray[i].length;
+            slugPerc = sum / batArray[i].length;    // calculates the slugging percentage
         }
-        return slugPerc;
+        return slugPerc;         // returns the calculated slugging percentage to main
     }
 
+
+
 /*
-                    This is the method to populate arrays by asking user input on number of batters, number of times at bat and results of at bat
+                        This is the method to populate arrays by asking user input on number of batters,
+                         number of times at bat and results of at bat
      */
 
 
@@ -103,21 +113,31 @@ public class Main {
 
 
                 // This checks if the user input for at bat result is valid between 0 and 4
-                if (batArray[i][j] < 0 || batArray [i][j] > 4) {
-                    System.out.println("Please input result as : 0=out, 1=single, 2=double, 3=triple, 4=home run");
-                    batArray[i][j] = scan1.nextInt();
-                    scan1.nextLine();
-
-                } else {
-                    continue;
-
-                }
+                atBatResult(scan1, batArray[i], j);
 
             }
         }
 
         return batArray;
     }
+
+
+    /*
+                        This is the method to check user input for at bat results
+         */
+    public static void atBatResult(Scanner scan1, int[] ints, int j) {
+        if (ints[j] < 0 || ints[j] > 4) {
+            System.out.println("Please input result as : 0=out, 1=single, 2=double, 3=triple, 4=home run");
+            ints[j] = scan1.nextInt();
+            scan1.nextLine();
+
+        } else {
+            return;
+
+        }
+    }
+
+
 
 /*
                         This is the method to ask if user wants to continue

@@ -15,11 +15,12 @@ public class Main {
 
             int[][] batArray = userInput();                                     // initialized the array in main
 
+            /*printArray(batArray);*/                                           // print to check array content
 
             // print results of both calculations for all batters
             for (int i = 0; i < batArray.length; i++) {
                 System.out.printf("Batter %5d Batting average: %-10.2f Slugging percentage: %-10.2f", i + 1,
-                        calcBatPerc(batArray), calcSlugPerc(batArray));
+                        calcBatPerc(batArray[i]), calcSlugPerc(batArray[i]));
 
                 System.out.println();
             }
@@ -28,66 +29,78 @@ public class Main {
 
     } // end of main
 
-//    TODO                  The program is only outputting the last batter's result
 
 
 /*
-                        This is the method for calculating batting percentage
-     */
+    This is the method for calculating batting percentage
+*/
 
-    public static double calcBatPerc(int[][] batArray) {
+    public static double calcBatPerc(int[] batArray) {
         double batAvg = 0.0;
 
 
-        for (int i = 0; i < batArray.length; i++) {
-            double batSum = 0;
+        double batSum = 0;
 
-            for (int j = 0; j < batArray[i].length; j++) {
-                if (batArray[i][j] == 0) {                   //If at bat result is 0 the program continues
-                    continue;
-                } else {
-                    ++batSum;  //else; at bat result is not 0, adds +1 to the count of how many times at bat
-                }
+        for (int j = 0; j < batArray.length; j++) {
+            if (batArray[j] == 0) {                   //If at bat result is 0 the program continues
+                continue;
+            } else {
+                ++batSum;  //else; at bat result is not 0, adds +1 to the count of how many times at bat
             }
-
-            batAvg = batSum / batArray[i].length;    // calculates the slugging percentage
         }
+
+        batAvg = batSum / batArray.length;    // calculates the slugging percentage
+
         return batAvg;          // returns the calculated slugging percentage to main
     }
 
 
-
 /*
-                        This is the method fo calculating slugging percentage
-     */
+    This is the method fo calculating slugging percentage
+*/
 
-    public static double calcSlugPerc(int[][] batArray) {
+    public static double calcSlugPerc(int[] batArray) {
         double slugPerc = 0.0;
 
-
+        double sum = 0;
         for (int i = 0; i < batArray.length; i++) {
-            double sum = 0;
 
-            for (int j = 0; j < batArray[i].length; j++) {
-                if (batArray[i][j] == 0) {         //If at bat result is 0 the program continues
-                    continue;
-                } else {
-                    sum = sum + batArray[i][j];     //else; at bat result is not 0, adds the total number in the row
-                }
-            }
+            sum = sum + batArray[i];     //else; at bat result is not 0, adds the total number in the row
 
-            slugPerc = sum / batArray[i].length;    // calculates the slugging percentage
         }
-        return slugPerc;         // returns the calculated slugging percentage to main
+
+        slugPerc = sum / batArray.length;    // calculates the slugging percentage
+        return slugPerc;                    // returns the calculated slugging percentage to main
     }
 
 
 
-/*
-                        This is the method to populate arrays by asking user input on number of batters,
-                         number of times at bat and results of at bat
-     */
+/**
+            // This prints the array for checking array contents
 
+
+//        public static void printArray(int[][] batArray) {
+//
+//
+//        for (int i = 0; i < batArray.length; i++) {
+//
+//
+//            for (int j = 0; j < batArray[i].length; j++) {
+//
+//
+//                System.out.println(batArray[i][j]);
+//
+//            }
+//        }
+//
+//    }
+
+*/
+
+/*
+    This is the method to populate arrays by asking user input on number of batters,
+    number of times at bat and results of at bat
+*/
 
     public static int[][] userInput() {
         Scanner scan1 = new Scanner(System.in);
@@ -127,7 +140,7 @@ public class Main {
          */
     public static void atBatResult(Scanner scan1, int[] ints, int j) {
         if (ints[j] < 0 || ints[j] > 4) {
-            System.out.println("Please input result as : 0=out, 1=single, 2=double, 3=triple, 4=home run");
+            System.out.println("Please input result as : 0 = Out, 1 = Single, 2 = Double, 3 = Triple, 4 = HOME RUN!");
             ints[j] = scan1.nextInt();
             scan1.nextLine();
 
@@ -142,8 +155,6 @@ public class Main {
 /*
                         This is the method to ask if user wants to continue
      */
-
-
     public static boolean userContinueProgram() {
         Scanner scan = new Scanner(System.in);
         String userCont;
